@@ -12,6 +12,7 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     TankFrame tankFrame;
+    private Group group = Group.BAD;
     private int x,y;
     private Dir dir;
     private boolean living = true;
@@ -75,6 +76,15 @@ public class Bullet {
     public void setLive(boolean live) {
         this.living = live;
     }
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+
 
     public void paint(Graphics g) {
         if (!living){
@@ -101,10 +111,11 @@ public class Bullet {
         move();
 
     }
-    public Bullet(int x, int y, Dir dir,TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
 
     }
@@ -135,9 +146,18 @@ public class Bullet {
     }
 
 
+    /**
+     * 碰撞检测方法
+     * @param tank
+     */
     public void collideWith(Tank tank) {
+        if (this.group == tank.getGroup()){
+            return;
+        }
+        //TODO：用一个rect来记录子弹的位置
         Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+
         if (rect1.intersects(rect2)){
             tank.die();
             this.die();

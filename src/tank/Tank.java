@@ -1,6 +1,7 @@
 package tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @Description TODO
@@ -11,10 +12,15 @@ public class Tank {
     TankFrame tankFrame;
 
     private int x,y;
+
+
+
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 5;
-    private boolean moving = false;
+    private static final int SPEED = 1;
+    private boolean moving = true;
     private boolean living = true;
+    private Random random = new Random();
+    private Group group = Group.BAD;
 
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
@@ -68,13 +74,18 @@ public class Tank {
 
         }
 
+        if (random.nextInt(10)>5) {
+            this.fire();
+        }
+
     }
 
 
-    public Tank(int x, int y, Dir dir,TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -113,11 +124,18 @@ public class Tank {
     public static int getSPEED() {
         return SPEED;
     }
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 
     public void fire() {
         int bx = this.x + WIDTH/2 - Bullet.WIDTH/2;
         int by = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-       tankFrame.bulletList.add(new Bullet(bx,by,this.dir,tankFrame));
+       tankFrame.bulletList.add(new Bullet(bx,by,this.dir,this.group,tankFrame));
     }
      void die() {
         this.living = false;
