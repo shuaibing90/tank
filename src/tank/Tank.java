@@ -9,10 +9,14 @@ import java.awt.*;
  */
 public class Tank {
     TankFrame tankFrame;
+
     private int x,y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     private boolean moving = false;
+
+    public static int WIDTH = ResourceMgr.tankD.getWidth();
+    public static int HEIGHT = ResourceMgr.tankD.getHeight();
 
 
     public void paint(Graphics g) {
@@ -107,6 +111,8 @@ public class Tank {
     }
 
     public void fire() {
-       tankFrame.bulletList.add(new Bullet(this.x,this.y,this.dir,tankFrame));
+        int bx = this.x + WIDTH/2 - Bullet.WIDTH/2;
+        int by = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
+       tankFrame.bulletList.add(new Bullet(bx,by,this.dir,tankFrame));
     }
 }
