@@ -14,12 +14,16 @@ public class Tank {
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 5;
     private boolean moving = false;
+    private boolean living = true;
 
     public static int WIDTH = ResourceMgr.tankD.getWidth();
     public static int HEIGHT = ResourceMgr.tankD.getHeight();
 
 
     public void paint(Graphics g) {
+        if (!living){
+            tankFrame.tankList.remove(this);
+        }
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, x, y, null);
@@ -114,5 +118,8 @@ public class Tank {
         int bx = this.x + WIDTH/2 - Bullet.WIDTH/2;
         int by = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
        tankFrame.bulletList.add(new Bullet(bx,by,this.dir,tankFrame));
+    }
+     void die() {
+        this.living = false;
     }
 }
