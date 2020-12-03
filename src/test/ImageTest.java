@@ -20,13 +20,19 @@ public class ImageTest {
     @Test
     void test(){
         try {
-            BufferedImage image = ImageIO.read(new File(""));
+
+            BufferedImage image = ImageIO.read(new File("/home/xysycx/IdeaProjects/tank/src/images/bulletD.gif"));
             assertNotNull(image);
+            BufferedImage image2 = ImageIO.read(new File("src/images/bulletD.gif"));
+            assertNotNull(image2);
+            BufferedImage image3 = ImageIO.read(ImageTest.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            assertNotNull(image3);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-//        fail("Not yet implemented");
-        assertNotNull(new Object());
+
     }
 }

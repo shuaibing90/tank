@@ -1,10 +1,4 @@
-package cn.xysycx;
-
-import cn.xysycx.tank.TankFrame;
-
-import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import tank.TankFrame;
 
 public class Main {
 

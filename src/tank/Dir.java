@@ -1,4 +1,4 @@
-package cn.xysycx.tank;
+package tank;
 
 /**
  * @Description TODO
