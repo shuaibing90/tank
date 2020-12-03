@@ -10,11 +10,7 @@ import java.util.Random;
  */
 public class Tank {
     TankFrame tankFrame;
-
     private int x,y;
-
-
-
     private Dir dir = Dir.DOWN;
     private static final int SPEED = 1;
     private boolean moving = true;
@@ -46,16 +42,13 @@ public class Tank {
             default:
                 break;
         }
-
         move();
-
     }
 
     private void move() {
         if (!moving){
             return;
         }
-
         switch (dir){
             case LEFT:
                 x -= SPEED;
@@ -80,7 +73,6 @@ public class Tank {
 
     }
 
-
     public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
@@ -88,7 +80,6 @@ public class Tank {
         this.group = group;
         this.tankFrame = tankFrame;
     }
-
     public boolean isMoving() {
         return moving;
     }

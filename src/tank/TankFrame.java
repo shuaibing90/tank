@@ -19,9 +19,11 @@ public class TankFrame extends Frame {
 
     List<Tank> tankList =new ArrayList<Tank>();
 
+    Explode e = new Explode(100,100,this);
 
 
-//    Bullet b = new Bullet(300,300,Dir.DOWN,this.ge,this);
+
+
 
 
     static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
@@ -85,6 +87,7 @@ public class TankFrame extends Frame {
 
             }
         }
+        e.paint(g);
 
 
      /*   for (Iterator<Bullet> it = bulletList.iterator(); it.hasNext();){
