@@ -14,7 +14,7 @@ public class Tank {
     TankFrame tankFrame;
     private int x,y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 2;
+    private static final int SPEED = Integer.valueOf(PropertyMgr.get("tankSpeed"));
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();

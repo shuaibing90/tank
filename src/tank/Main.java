@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
-        int initCountTank =Integer.parseInt((String)PropertyMgr.get("initCountTank")) ;
+        int initCountTank =Integer.parseInt(PropertyMgr.get("initCountTank")) ;
 
         //初始化地方坦克
         for (int i = 0; i < initCountTank; i++) {

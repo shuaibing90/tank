@@ -26,7 +26,7 @@ public class TankFrame extends Frame {
 
 
 
-    static final int GAME_WIDTH = 800,GAME_HEIGHT = 600;
+    static final int GAME_WIDTH = Integer.valueOf(PropertyMgr.get("gameWidth")),GAME_HEIGHT = Integer.valueOf(PropertyMgr.get("gameHeight"));
 
 
     public TankFrame() throws HeadlessException {
