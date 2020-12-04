@@ -19,7 +19,7 @@ public class TankFrame extends Frame {
 
     List<Tank> tankList =new ArrayList<Tank>();
 
-    Explode e = new Explode(100,100,this);
+    List<Explode> explodes = new ArrayList<>();
 
 
 
@@ -68,9 +68,11 @@ public class TankFrame extends Frame {
         Color color = g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量："+bulletList.size(),10,60);
-        g.drawString("敌人的数量："+tankList.size(),10,120);
+        g.drawString("敌人的数量："+tankList.size(),10,80);
+        g.drawString("爆炸的数量："+explodes.size(),10,100);
         g.setColor(color);
         myTank.paint(g);
+
 
 
         for (int i = 0; i < bulletList.size(); i++) {
@@ -80,6 +82,10 @@ public class TankFrame extends Frame {
         for (int i = 0; i < tankList.size(); i++) {
             tankList.get(i).paint(g);
         }
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
+        //collision detect
 
         for (int i = 0; i < bulletList.size(); i++) {
             for (int j = 0; j <tankList.size() ; j++) {
@@ -87,7 +93,7 @@ public class TankFrame extends Frame {
 
             }
         }
-        e.paint(g);
+
 
 
      /*   for (Iterator<Bullet> it = bulletList.iterator(); it.hasNext();){

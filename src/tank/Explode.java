@@ -12,7 +12,7 @@ public class Explode {
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
     private int x,y;
     TankFrame tankFrame;
-    private boolean living = true;
+//    private boolean living = true;
     private int setp = 0;
 
     public Explode(int x, int y, TankFrame tankFrame) {
@@ -26,7 +26,7 @@ public class Explode {
     public void paint(Graphics g){
         g.drawImage(ResourceMgr.explodes[setp++],x,y,null);
         if (setp >= ResourceMgr.explodes.length){
-            setp = 0 ;
+            tankFrame.explodes.remove(this);
         }
 
     }
