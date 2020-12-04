@@ -19,6 +19,7 @@ public class Tank {
     private boolean living = true;
     private Random random = new Random();
     private Group group = Group.BAD;
+    Rectangle rect = new Rectangle();
 
     public static int WIDTH = ResourceMgr.goodtankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodtankU.getHeight();
@@ -72,6 +73,7 @@ public class Tank {
 
         }
 
+
         if (this.group == Group.BAD && random.nextInt(100)>95) {
             this.fire();
 
@@ -81,7 +83,9 @@ public class Tank {
             randomDir();
         }
         boundsCheck();
-
+        //update rect
+        rect.x = this.x;
+        rect.y = this.y;
 
     }
 
@@ -106,6 +110,10 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
     public boolean isMoving() {
         return moving;
