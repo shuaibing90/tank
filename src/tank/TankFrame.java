@@ -137,7 +137,7 @@ public class TankFrame extends Frame {
             }
             setMainTankDir();
 
-            System.out.println("按键按下");
+
 
          /*   x += 30;
             repaint();*/
@@ -169,7 +169,7 @@ public class TankFrame extends Frame {
 
             }
             setMainTankDir();
-            System.out.println("按键弹起");
+
         }
 
         private void setMainTankDir() {

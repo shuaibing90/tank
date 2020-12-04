@@ -3,6 +3,8 @@ package tank;
 import java.awt.*;
 import java.util.Random;
 
+import static tank.ResourceMgr.*;
+
 /**
  * @Description TODO
  * @Author Fedeline
@@ -12,32 +14,35 @@ public class Tank {
     TankFrame tankFrame;
     private int x,y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 1;
+    private static final int SPEED = 2;
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();
     private Group group = Group.BAD;
 
-    public static int WIDTH = ResourceMgr.tankD.getWidth();
-    public static int HEIGHT = ResourceMgr.tankD.getHeight();
+    public static int WIDTH = ResourceMgr.goodtankU.getWidth();
+    public static int HEIGHT = ResourceMgr.goodtankU.getHeight();
 
 
     public void paint(Graphics g) {
+
+
         if (!living){
             tankFrame.tankList.remove(this);
         }
+
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodtankL:badtankL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodtankR:badtankR, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodtankU:badtankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(this.group == Group.GOOD?ResourceMgr.goodtankD:badtankD, x, y, null);
                 break;
             default:
                 break;
