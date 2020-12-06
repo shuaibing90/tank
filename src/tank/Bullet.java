@@ -19,6 +19,7 @@ public class Bullet {
     private Dir dir;
     private boolean living = true;
 
+
     public static int getSPEED() {
         return SPEED;
     }
@@ -123,6 +124,7 @@ public class Bullet {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        tankFrame.bulletList.add(this);
 
     }
     private void move() {

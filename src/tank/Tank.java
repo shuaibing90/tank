@@ -1,6 +1,7 @@
 package tank;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 import static tank.ResourceMgr.*;
@@ -12,17 +13,20 @@ import static tank.ResourceMgr.*;
  */
 public class Tank {
     TankFrame tankFrame;
-    private int x,y;
+    int x,y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = Integer.valueOf(PropertyMgr.get("tankSpeed"));
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();
     private Group group = Group.BAD;
+
+    FireStrategy fs = new FourDirFireStrategy();
     Rectangle rect = new Rectangle();
 
     public static int WIDTH = ResourceMgr.goodtankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodtankU.getHeight();
+
 
 
     public void paint(Graphics g) {
@@ -114,6 +118,38 @@ public class Tank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        if (group == Group.GOOD){
+            String  goodFSName =(String) PropertyMgr.get("goodFS");
+            try {
+               fs =(FireStrategy)  Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }else {
+            String  badFSName =(String) PropertyMgr.get("badFS");
+            try {
+                fs =(FireStrategy)  Class.forName(badFSName).getDeclaredConstructor().newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
     public boolean isMoving() {
         return moving;
@@ -159,9 +195,8 @@ public class Tank {
     }
 
     public void fire() {
-        int bx = this.x + WIDTH/2 - Bullet.WIDTH/2;
-        int by = this.y + HEIGHT/2 - Bullet.HEIGHT/2;
-       tankFrame.bulletList.add(new Bullet(bx,by,this.dir,this.group,tankFrame));
+        fs.fire(this);
+
     }
      void die() {
         this.living = false;
