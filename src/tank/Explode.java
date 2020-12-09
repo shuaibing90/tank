@@ -11,14 +11,14 @@ public class Explode {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
     private int x,y;
-    TankFrame tankFrame;
+    GameModel gameModel;
 //    private boolean living = true;
     private int setp = 0;
 
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public Explode(int x, int y, GameModel gameModel) {
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
 
     }
@@ -26,7 +26,7 @@ public class Explode {
     public void paint(Graphics g){
         g.drawImage(ResourceMgr.explodes[setp++],x,y,null);
         if (setp >= ResourceMgr.explodes.length){
-            tankFrame.explodes.remove(this);
+            gameModel.explodes.remove(this);
         }
 
     }

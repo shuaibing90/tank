@@ -13,7 +13,7 @@ public class Bullet {
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
     Rectangle rect = new Rectangle();
-    TankFrame tankFrame;
+    GameModel gameModel = null;
     private Group group = Group.BAD;
     private int x,y;
     private Dir dir;
@@ -39,15 +39,6 @@ public class Bullet {
     public static void setHEIGHT(int HEIGHT) {
         Bullet.HEIGHT = HEIGHT;
     }
-
-    public TankFrame getTankFrame() {
-        return tankFrame;
-    }
-
-    public void setTankFrame(TankFrame tankFrame) {
-        this.tankFrame = tankFrame;
-    }
-
     public int getX() {
         return x;
     }
@@ -91,7 +82,7 @@ public class Bullet {
 
     public void paint(Graphics g) {
         if (!living){
-            tankFrame.bulletList.remove(this);
+            gameModel.bulletList.remove(this);
 
 
         }
@@ -114,17 +105,17 @@ public class Bullet {
         move();
 
     }
-    public Bullet(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir,Group group,GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
-        tankFrame.bulletList.add(this);
+        gameModel.bulletList.add(this);
 
     }
     private void move() {
@@ -174,7 +165,7 @@ public class Bullet {
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(eX,eY,tankFrame));
+            gameModel.explodes.add(new Explode(eX,eY,gameModel));
         }
     }
 

@@ -14,15 +14,7 @@ import java.util.List;
  * @Date 2020/11/23 下午6:45
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
-    List<Bullet> bulletList = new ArrayList();
-
-    List<Tank> tankList =new ArrayList<Tank>();
-
-    List<Explode> explodes = new ArrayList<>();
-
-
-
+    GameModel gameModel = new GameModel();
 
 
 
@@ -65,45 +57,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量："+bulletList.size(),10,60);
-        g.drawString("敌人的数量："+tankList.size(),10,80);
-        g.drawString("爆炸的数量："+explodes.size(),10,100);
-        g.setColor(color);
-        myTank.paint(g);
-
-
-
-        for (int i = 0; i < bulletList.size(); i++) {
-            bulletList.get(i).paint(g);
-        }
-
-        for (int i = 0; i < tankList.size(); i++) {
-            tankList.get(i).paint(g);
-        }
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
-        //collision detect
-
-        for (int i = 0; i < bulletList.size(); i++) {
-            for (int j = 0; j <tankList.size() ; j++) {
-                bulletList.get(i).collideWith(tankList.get(j));
-
-            }
-        }
-
-
-
-     /*   for (Iterator<Bullet> it = bulletList.iterator(); it.hasNext();){
-            Bullet b = it.next();
-            if (!b.isLive()){
-                it.remove();
-            }
-        }*/
-
-
+        gameModel.paint(g);
 
     }
 
@@ -148,6 +102,7 @@ public class TankFrame extends Frame {
         @Override
         public void keyReleased(KeyEvent e) {
             int keyCode = e.getKeyCode();
+            gameModel.myTank.setMoving(true);
             switch (keyCode){
                 case KeyEvent.VK_LEFT:
                     bL = false;
@@ -163,7 +118,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    gameModel.getMainTank().fire();
                 default:
                     break;
 
@@ -173,7 +128,8 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            myTank.setMoving(true);
+            Tank myTank = gameModel.getMainTank();
+
             if (!bL && !bD && !bR && !bU){
                 myTank.setMoving(false);
             }

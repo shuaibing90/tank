@@ -33,7 +33,7 @@ public class Tank {
 
 
         if (!living){
-            tankFrame.tankList.remove(this);
+            gameModel.tankList.remove(this);
         }
 
         switch (dir) {
@@ -107,13 +107,14 @@ public class Tank {
             y = TankFrame.GAME_HEIGHT - Tank.HEIGHT -2;
         }
     }
+    GameModel gameModel;
 
-    public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir,Group group,GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
