@@ -1,4 +1,7 @@
-package tank;
+package cn.xysycx.tank.strategy;
+
+import tank.Bullet;
+import tank.Tank;
 
 /**
  * @Description TODO

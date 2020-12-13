@@ -1,5 +1,8 @@
 package tank;
 
+import cn.xysycx.tank.strategy.FireStrategy;
+import cn.xysycx.tank.strategy.FourDirFireStrategy;
+
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
@@ -11,29 +14,33 @@ import static tank.ResourceMgr.*;
  * @Author Fedeline
  * @Date 2020/12/2 下午12:04
  */
-public class Tank {
+public class Tank extends GameObject {
     TankFrame tankFrame;
-    int x,y;
-    private Dir dir = Dir.DOWN;
+    public int x,y;
+    public Dir dir = Dir.DOWN;
     private static final int SPEED = Integer.valueOf(PropertyMgr.get("tankSpeed"));
     private boolean moving = true;
     private boolean living = true;
     private Random random = new Random();
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
+    public GameModel gameModel;
 
     FireStrategy fs = new FourDirFireStrategy();
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
+
+
 
     public static int WIDTH = ResourceMgr.goodtankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodtankU.getHeight();
 
 
 
+    @Override
     public void paint(Graphics g) {
 
 
         if (!living){
-            gameModel.tankList.remove(this);
+            gameModel.remove(this);
         }
 
         switch (dir) {
@@ -107,7 +114,7 @@ public class Tank {
             y = TankFrame.GAME_HEIGHT - Tank.HEIGHT -2;
         }
     }
-    GameModel gameModel;
+
 
     public Tank(int x, int y, Dir dir,Group group,GameModel gameModel) {
         this.x = x;
@@ -207,5 +214,9 @@ public class Tank {
 
 
         this.dir = Dir.values()[random.nextInt(4)];
+    }
+
+    public void stop(){
+        moving = false;
     }
 }

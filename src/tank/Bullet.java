@@ -7,7 +7,7 @@ import java.awt.*;
  * @Author Fedeline
  * @Date 2020/12/2 下午12:26
  */
-public class Bullet {
+public class Bullet extends GameObject {
     private static final int SPEED = Integer.valueOf(PropertyMgr.get("bulletSpeed"));
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -80,9 +80,10 @@ public class Bullet {
 
 
 
+    @Override
     public void paint(Graphics g) {
         if (!living){
-            gameModel.bulletList.remove(this);
+            gameModel.remove(this);
 
 
         }
@@ -115,7 +116,7 @@ public class Bullet {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
-        gameModel.bulletList.add(this);
+        gameModel.add(this);
 
     }
     private void move() {
@@ -152,9 +153,9 @@ public class Bullet {
      * 碰撞检测方法
      * @param tank
      */
-    public void collideWith(Tank tank) {
+    public Boolean collideWith(Tank tank) {
         if (this.group == tank.getGroup()){
-            return;
+            return false;
         }
 
         Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
@@ -165,8 +166,10 @@ public class Bullet {
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gameModel.explodes.add(new Explode(eX,eY,gameModel));
+            gameModel.add(new Explode(eX,eY,gameModel));
+            return true;
         }
+        return false;
     }
 
     private void die() {
